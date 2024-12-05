@@ -23,7 +23,7 @@ describe('Pruebas para crear tiendas', () => {
         cy.url().should('include', '/Principal.aspx')
         cy.visit('http://localhost:49923/Maestros/Tiendas/')
 });
-    it.only('Debería ingresar los datos del propietario', () => {
+    it('Debería ingresar los datos del propietario', () => {
         const cc = generarNumeroAleatorio();
         const tl1 = generarNumeroAleatorio();
         const tl2 = generarNumeroAleatorio();
@@ -31,6 +31,7 @@ describe('Pruebas para crear tiendas', () => {
         const ap = generarPalabraAleatoria();
         const ap2 = generarPalabraAleatoria();
         const nomt = generarPalabraAleatoria();
+        const num = numP();
 
             cy.get('#contenido_txtCC').type(cc)
             cy.get('#contenido_txtnom1').type(nom)
@@ -78,11 +79,11 @@ describe('Pruebas para crear tiendas', () => {
         cy.get('[id^="select2-result-label-"]').click()
        // Selecciona el municipio
         cy.get('#select2-chosen-8').click()
-        cy.get('#s2id_autogen8_search').type('Medel')
+        cy.get('#s2id_autogen8_search').type('Mede')
         cy.get('[id^="select2-result-label-"]').click();
         // Seleccion zona
         cy.get('#select2-chosen-9').click()
-        cy.get('#s2id_autogen9_search').type('oriente Medellin')
+        cy.get('#s2id_autogen9_search').type('occidente Medellin')
         cy.get('[id^="select2-result-label-"]').click()
         // Seleccion comuna
         cy.get('#select2-chosen-10').click()
@@ -137,7 +138,7 @@ describe('Pruebas para crear tiendas', () => {
         cy.get('[id^="select2-result-label-"]').eq(0).click()
 
          // Numero personas
-        cy.get('#numPersonas').type('2')
+        cy.get('#numPersonas').type(num)
          // Correo electronico
         cy.get('#CorreoElectronico').type('orlandopz@gmail.com')
          // LATITUD
@@ -157,112 +158,48 @@ describe('Pruebas para crear tiendas', () => {
 
         // Seleccionar el primer archivo
         cy.get('input[type="file"]').eq(0)
-        .selectFile('../test_manager/cypress/fixtures/testPicture.png', { force: true });
+        .selectFile('../test_manager/cypress/fixtures/Screenshots/Captura de pantalla 2024-11-25 093946.png', { force: true });
 
         // Verificar que el archivo fue seleccionado correctamente
         cy.get('input[type="file"]').eq(0)
-        .should('have.value', 'C:\\fakepath\\testPicture.png');  
+        .should('have.value', 'C:\\fakepath\\Captura de pantalla 2024-11-25 093946.png');  
 
         // Seleccionar el segundo archivo
         cy.get('input[type="file"]').eq(1)
-        .selectFile('../test_manager/cypress/fixtures/testPicture.png', { force: true });
+        .selectFile('../test_manager/cypress/fixtures/Screenshots/Captura de pantalla 2024-11-25 093946.png', { force: true });
 
         // Verificar que el archivo fue seleccionado correctamente
         cy.get('input[type="file"]').eq(1)
-        .should('have.value', 'C:\\fakepath\\testPicture.png');  
+        .should('have.value', 'C:\\fakepath\\Captura de pantalla 2024-11-25 093946.png');  
 
-
-        cy.get('button[type="button"]').eq(0).click().should('be.visible')
-        // COLECERCA
-        cy.get('#s2id_ColeCerca').click() 
-        cy.get('#s2id_autogen31_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click({force: true}) 
-        // HOSPCERCA
-        cy.get('#s2id_HosCerca').click() 
-        cy.get('#s2id_autogen32_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        // IGLESIACERCA
-        cy.get('#s2id_IgleCerca').click() 
-        cy.get('#s2id_autogen33_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click()  
-        // HOTELCERCA
-        cy.get('#s2id_HotCerca').click() 
-        cy.get('#s2id_autogen34_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        // TIENDA A LA REDONDA
-        cy.get('#s2id_RedonTienda').click() 
-        cy.get('#s2id_autogen35_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click()  
-        // SUPERMERCADO A LA REDONDA
-        cy.get('#s2id_RedonSuper').click() 
-        cy.get('#s2id_autogen36_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        // TIENDAS MASCOTAS
-        cy.get('#s2id_TEMascotas').click()
-        cy.get('#s2id_autogen38_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        // TIENDAS COMERCIALES
-        cy.get('#s2id_RedonHard').click()
-        cy.get('#s2id_autogen39_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        // AÑO APERTURA
-        cy.get('#Year').type('2022')
-        // CUIDO PARA MASCOTAS
-        cy.get('#s2id_Bultos').click()
-        cy.get('#s2id_autogen42_search').type('perros y gatos')
-        cy.get('[id^="select2-result-label-"]').click() 
-        // PANTALLA PUBLI
-        cy.get('#s2id_Pantalla').click()
-        cy.get('#s2id_autogen44_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        cy.get('#PPantalla').type('trolli')
-        // MUEBLE GOMITAS
-        cy.get('#s2id_TMGomitas').click()
-        cy.get('#s2id_autogen45_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        cy.get('#PGomitas').type('trolli')
-        // MUEBLE DULCES
-        cy.get('#s2id_TMConfites').click()
-        cy.get('#s2id_autogen46_search').type('Si')
-        cy.get('[id^="select2-result-label-"]').click() 
-        cy.get('#PConfites').type('trolli')
-
-        // Intenta cerrar el modal
-    cy.window().then((win) => {
-        if (win.$ && win.$.fancybox && typeof win.$.fancybox.close === 'function') {
-            win.$.fancybox.close(); // Llama a la función de cierre
-        } else {
-            win.$('.fancybox-overlay').remove(); // Forzar eliminación del overlay
-            win.$('.fancybox-container').remove(); // Forzar eliminación del contenedor
-        }
-            });
-        });
-
-    // Interceptar la solicitud de guardar tienda
-    cy.intercept('POST', '/Maestros/Tiendas/WS.asmx/ingresartiendas', (req) => {
         // Imprime el cuerpo de la solicitud enviada por Cypress
-        console.log('Cuerpo de la solicitud:', req.body);
-        }).as('guardarTienda');
+        cy.intercept('POST', '/Maestros/Tiendas/WS.asmx/ingresartiendas', (req) => {
+            console.log('Datos enviados:', req.body);
+        }).as('guardar');
+        cy.get('#contenido_guardarBtn').click({ force: true });
+        cy.wait('@guardar').then((interception) => {
+            console.log('Respuesta del servidor:', interception.response);
+        });
+        
+        
 
-    // Simular el click en el botón de guardar tienda
-    cy.get('#contenido_guardarBtn').click();
-
-    // Esperar a que se capture la solicitud interceptada
-    cy.wait('@guardarTienda').then((interception) => {
-        // Imprimir detalles de la solicitud y respuesta
-        console.log('Datos enviados:', interception.request.body); // Muestra el cuerpo de la solicitud
-        console.log('Cabeceras:', interception.request.headers); // Muestra las cabeceras
-        console.log('URL:', interception.request.url); // Muestra la URL
-        console.log('Respuesta:', interception.response.body);
+    // // Esperar a que se capture la solicitud interceptada
+    // cy.wait('@guardarTienda').then((interception) => {
+    //     // Imprimir detalles de la solicitud y respuesta
+    //     console.log('Datos enviados:', interception.request.body); // Muestra el cuerpo de la solicitud
+    //     console.log('Cabeceras:', interception.request.headers); // Muestra las cabeceras
+    //     console.log('URL:', interception.request.url); // Muestra la URL
+    //     console.log('Respuesta:', interception.response.body);
     });
 });
-
 });
 
 function generarNumeroAleatorio() {
     return Math.floor(Math.random() * 10000000000); // Número entre 0 y 9999999999
 }
-
+function numP() {
+    return Math.floor(Math.random() * 10)
+}
 const { faker } = require('@faker-js/faker');
 
 function generarPalabraAleatoria() {
@@ -271,4 +208,74 @@ function generarPalabraAleatoria() {
 
 
 
-    
+// })
+
+// segmentacion{
+            // cy.get('button[type="button"]').eq(0).click().should('be.visible')
+
+    //     // COLECERCA
+    //     cy.get('#s2id_ColeCerca').click() 
+    //     cy.get('#s2id_autogen31_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click({force: true}) 
+    //     // HOSPCERCA
+    //     cy.get('#s2id_HosCerca').click() 
+    //     cy.get('#s2id_autogen32_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     // IGLESIACERCA
+    //     cy.get('#s2id_IgleCerca').click() 
+    //     cy.get('#s2id_autogen33_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click()  
+    //     // HOTELCERCA
+    //     cy.get('#s2id_HotCerca').click() 
+    //     cy.get('#s2id_autogen34_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     // TIENDA A LA REDONDA
+    //     cy.get('#s2id_RedonTienda').click() 
+    //     cy.get('#s2id_autogen35_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click()  
+    //     // SUPERMERCADO A LA REDONDA
+    //     cy.get('#s2id_RedonSuper').click() 
+    //     cy.get('#s2id_autogen36_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     // TIENDAS MASCOTAS
+    //     cy.get('#s2id_TEMascotas').click()
+    //     cy.get('#s2id_autogen38_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     // TIENDAS COMERCIALES
+    //     cy.get('#s2id_RedonHard').click()
+    //     cy.get('#s2id_autogen39_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     // AÑO APERTURA
+    //     cy.get('#Year').type('2022')
+    //     // CUIDO PARA MASCOTAS
+    //     cy.get('#s2id_Bultos').click()
+    //     cy.get('#s2id_autogen42_search').type('perros y gatos')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     // PANTALLA PUBLI
+    //     cy.get('#s2id_Pantalla').click()
+    //     cy.get('#s2id_autogen44_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     cy.get('#PPantalla').type('trolli')
+    //     // MUEBLE GOMITAS
+    //     cy.get('#s2id_TMGomitas').click()
+    //     cy.get('#s2id_autogen45_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     cy.get('#PGomitas').type('trolli')
+    //     // MUEBLE DULCES
+    //     cy.get('#s2id_TMConfites').click()
+    //     cy.get('#s2id_autogen46_search').type('Si')
+    //     cy.get('[id^="select2-result-label-"]').click() 
+    //     cy.get('#PConfites').type('trolli')
+
+    //     // Intenta cerrar el modal
+    // cy.window().then((win) => {
+    //     if (win.$ && win.$.fancybox && typeof win.$.fancybox.close === 'function') {
+    //         win.$.fancybox.close(); // Llama a la función de cierre
+    //     } else {
+    //         win.$('.fancybox-overlay').remove(); // Forzar eliminación del overlay
+    //         win.$('.fancybox-container').remove(); // Forzar eliminación del contenedor
+    //     }
+    //         });
+    //     });
+
+// }

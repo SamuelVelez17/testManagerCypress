@@ -23,6 +23,7 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import 'cypress-iframe';
 
 Cypress.Commands.add('loginAsAdmin', () => {
     cy.fixture('usuarios').then((usuarios) => {
@@ -57,4 +58,13 @@ Cypress.Commands.add('selectDropdown', (selector, value) => {
     cy.get(selector).click();
     cy.get('.select2-input').type(value);
     cy.get('[id^="select2-result-label-"]').contains(value).click();
+});
+
+Cypress.Commands.add('clickIframeButton', (iframeSelector, buttonSelector) => {
+    cy.get(iframeSelector)
+      .should('be.visible') // Espera a que el iframe sea visible
+      .its('0.contentDocument') // Accede al documento dentro del iframe
+      .its('body') // Accede al cuerpo del iframe
+      .find(buttonSelector) // Encuentra el botón dentro del iframe
+      .click(); // Haz clic en el botón
 });
