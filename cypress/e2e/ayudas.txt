@@ -1,0 +1,6 @@
+INTENTO SELECCÓN OBJETO AL AZAR
+cy.get('#select2-chosen-8').click();
+cy.get('ul.select2-results-8').should('be.visible');
+cy.get('ul.select2-results-8 > li').should('be.visible').then(($elements) => {   
+const randomElement = Cypress._.sample($elements);   
+cy.wrap(randomElement).click(); });
