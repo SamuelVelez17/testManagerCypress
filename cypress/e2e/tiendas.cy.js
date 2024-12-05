@@ -155,8 +155,22 @@ describe('Pruebas para crear tiendas', () => {
         cy.get('#s2id_autogen20_search').type('William')
         cy.get('[id^="select2-result-label-"]').click()
 
-        cy.get('input[type="file"]').eq(0).selectFile('../test_manager/cypress/fixtures/testPicture.png', {force: true});
-        cy.get('input[type="file"]').eq(1).selectFile('../test_manager/cypress/fixtures/testPicture.png', {force: true});
+        // Seleccionar el primer archivo
+        cy.get('input[type="file"]').eq(0)
+        .selectFile('../test_manager/cypress/fixtures/testPicture.png', { force: true });
+
+        // Verificar que el archivo fue seleccionado correctamente
+        cy.get('input[type="file"]').eq(0)
+        .should('have.value', 'C:\\fakepath\\testPicture.png');  
+
+        // Seleccionar el segundo archivo
+        cy.get('input[type="file"]').eq(1)
+        .selectFile('../test_manager/cypress/fixtures/testPicture.png', { force: true });
+
+        // Verificar que el archivo fue seleccionado correctamente
+        cy.get('input[type="file"]').eq(1)
+        .should('have.value', 'C:\\fakepath\\testPicture.png');  
+
 
         cy.get('button[type="button"]').eq(0).click().should('be.visible')
         // COLECERCA
@@ -214,42 +228,34 @@ describe('Pruebas para crear tiendas', () => {
         cy.get('#PConfites').type('trolli')
 
         // Intenta cerrar el modal
-cy.window().then((win) => {
-    if (win.$ && win.$.fancybox && typeof win.$.fancybox.close === 'function') {
-        win.$.fancybox.close(); // Llama a la función de cierre
-    } else {
-        win.$('.fancybox-overlay').remove(); // Forzar eliminación del overlay
-        win.$('.fancybox-container').remove(); // Forzar eliminación del contenedor
-    }
+    cy.window().then((win) => {
+        if (win.$ && win.$.fancybox && typeof win.$.fancybox.close === 'function') {
+            win.$.fancybox.close(); // Llama a la función de cierre
+        } else {
+            win.$('.fancybox-overlay').remove(); // Forzar eliminación del overlay
+            win.$('.fancybox-container').remove(); // Forzar eliminación del contenedor
+        }
+            });
         });
+
+    // Interceptar la solicitud de guardar tienda
+    cy.intercept('POST', '/Maestros/Tiendas/WS.asmx/ingresartiendas', (req) => {
+        // Imprime el cuerpo de la solicitud enviada por Cypress
+        console.log('Cuerpo de la solicitud:', req.body);
+        }).as('guardarTienda');
+
+    // Simular el click en el botón de guardar tienda
+    cy.get('#contenido_guardarBtn').click();
+
+    // Esperar a que se capture la solicitud interceptada
+    cy.wait('@guardarTienda').then((interception) => {
+        // Imprimir detalles de la solicitud y respuesta
+        console.log('Datos enviados:', interception.request.body); // Muestra el cuerpo de la solicitud
+        console.log('Cabeceras:', interception.request.headers); // Muestra las cabeceras
+        console.log('URL:', interception.request.url); // Muestra la URL
+        console.log('Respuesta:', interception.response.body);
     });
-
-// Interceptar la solicitud de guardar tienda
-cy.intercept('POST', '/Maestros/Tiendas/WS.asmx/ingresartiendas', (req) => {
-    // Imprime el cuerpo de la solicitud enviada por Cypress
-    console.log('Cuerpo de la solicitud:', req.body);
-    }).as('guardarTienda');
-
-  // Simular el click en el botón de guardar tienda
-cy.get('#contenido_guardarBtn').click();
-
-  // Esperar a que se capture la solicitud interceptada
-cy.wait('@guardarTienda').then((interception) => {
-    // Imprimir detalles de la solicitud y respuesta
-    console.log('Solicitud enviada:', interception.request.body);
-    console.log('Respuesta del servidor:', interception.response);
 });
-
-
-    
-
-});
-
-cy.on('window:alert', (text) => {
-    // Muestra el mensaje del alert
-    cy.log('Se lanzó un alert:', text);
-});
-
 
 });
 
