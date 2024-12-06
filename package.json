@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf cypress/reports",
     "test:frontend": "cypress run --reporter mochawesome",
     "generate-report": "marge cypress/reports/*.json --reportDir cypress/reports --inline"
   },
